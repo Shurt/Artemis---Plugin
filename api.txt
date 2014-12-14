@@ -1,0 +1,2 @@
+#1 Command to invoke plugin and the class it calls must have matching names.
+#2 Primary class always calls the 'ui' method. From there, control is left to developer.
