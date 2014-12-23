@@ -15,6 +15,7 @@ class Plugins
   def initialize() ; end
 
   def callplugin(command)
+    command = command.downcase
     pluginlist = File.read("plugins.txt").split("\n")
     num = pluginlist.length
     i = 0
@@ -22,8 +23,6 @@ class Plugins
       if command == pluginlist[i]
         system "clear" or system "cls"
         plugin = eval(pluginlist[i].capitalize).new.ui
-        #system "clear" or system "cls"
-        #plugin.ui
         i += 1
         break
       else
@@ -33,14 +32,17 @@ class Plugins
   end
 end
 
-
-puts "Command?"
+system "clear" or system "cls"
+puts "Where should we start?"
+puts "+++++++++++++++++++"
+plugins = File.read("plugins.txt").split("\n")
+puts plugins.map(&:capitalize)
+puts "Optionally, you can also reload or exit."
 command = gets.chomp
 if command === "reload"
   Kernel.exec "ruby Artemis.rb"
 elsif command === "exit"
   abort
 else
-  test = Plugins.new
-  test.callplugin(command)
+  plugin = Plugins.new.callplugin(command)
 end
